@@ -31,7 +31,7 @@
       right: 0;
       bottom: 0;
       min-width: 100%;
-      min-height: 100%;
+      min-height: 100vh;
       width: auto;
       height: auto;
       z-index: -1;
@@ -44,11 +44,12 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      min-width: 100%;
-      min-height: 100%;
-      width: auto;
-      height: auto;
       pointer-events: none;
+      min-width: 200%;
+      min-height: 200vh;
+    }
+
+    .yt-container iframe {
       opacity: 0.6;
     }
 
@@ -232,20 +233,35 @@
 
     function onYouTubeIframeAPIReady() {
       player = new YT.Player('yt-player', {
-        videoId: 'q6EoRBvdVPQ',
+        videoId: 'Ys3zAdSI1eI',
         playerVars: {
           autoplay: 1,
           loop: 1,
-          playlist: 'q6EoRBvdVPQ',
+          playlist: 'Ys3zAdSI1eI',
           controls: 0,
           showinfo: 0,
           mute: 1,
           modestbranding: 1,
+          iv_load_policy: 3,
+          fs: 0,
+          rel: 0,
           playsinline: 1,
-          enablejsapi: 1
+          enablejsapi: 1,
+          disablekb: 1,
+          origin: window.location.origin,
+          widget_referrer: window.location.origin
         },
         events: {
-          onReady: (e) => e.target.playVideo()
+          onReady: (e) => {
+            e.target.playVideo();
+            e.target.setPlaybackQuality('hd1080');
+            e.target.mute();
+          },
+          onStateChange: (e) => {
+            if (e.data === YT.PlayerState.ENDED) {
+              e.target.playVideo();
+            }
+          }
         }
       });
     }
