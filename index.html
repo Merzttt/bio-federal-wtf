@@ -5,6 +5,26 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --glass-bg: rgba(15, 15, 15, 0.7);
+      --border-color: rgba(35, 35, 35, 0.8);
+      --accent: #ff2e2e;
+    }
+
+    ::selection {
+      background: rgba(35, 35, 35, 0.95);
+      border-radius: 4px;
+      color: #fff;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'JetBrains Mono', monospace;
+      color: #e0e0e0;
+      overflow: hidden;
+      background: #0a0a0a;
+    }
 
     .yt-container {
       position: fixed;
@@ -31,7 +51,122 @@
       pointer-events: none;
       opacity: 0.6;
     }
-    
+
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 2.5rem;
+      width: 90%;
+      max-width: 460px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+      transform-style: preserve-3d;
+      transition: transform 0.1s ease;
+    }
+
+    .glass-card-content {
+      transform-style: preserve-3d;
+    }
+
+    .glass-card-inner {
+      transform: translateZ(20px);
+    }
+
+    .no-select {
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .site-title {
+      font-weight: 600;
+      text-transform: lowercase;
+      letter-spacing: -1px;
+    }
+
+    .skill-tag {
+      background: rgba(25, 25, 25, 0.95);
+      border: 1px solid var(--border-color);
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: #888;
+      transition: all 0.2s ease;
+    }
+
+    .skill-tag:hover {
+      background: rgba(35, 35, 35, 0.95);
+      color: #fff;
+    }
+
+    #sound-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(25, 25, 25, 0.95);
+      border: 1px solid var(--border-color);
+      padding: 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    #sound-toggle:hover {
+      background: rgba(35, 35, 35, 0.95);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem;
+      border-radius: 4px;
+      background: rgba(25, 25, 25, 0.95);
+      border: 1px solid var(--border-color);
+      color: #888;
+      transition: all 0.2s ease;
+      transform: translateZ(30px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .badge svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .badge:hover {
+      background: rgba(35, 35, 35, 0.95);
+      color: #fff;
+    }
+
+    .tooltip {
+      position: relative;
+    }
+
+    .tooltip:before {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 0.5rem;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.95);
+      border: 1px solid var(--border-color);
+      color: #888;
+      font-size: 0.75rem;
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.2s ease;
+    }
+
+    .tooltip:hover:before {
+      opacity: 1;
+      visibility: visible;
+      bottom: calc(100% + 5px);
+    }
   </style>
 </head>
 <body>
@@ -97,11 +232,11 @@
 
     function onYouTubeIframeAPIReady() {
       player = new YT.Player('yt-player', {
-        videoId: 'Ys3zAdSI1eI',
+        videoId: 'q6EoRBvdVPQ',
         playerVars: {
           autoplay: 1,
           loop: 1,
-          playlist: 'Ys3zAdSI1eI'
+          playlist: 'q6EoRBvdVPQ',
           controls: 0,
           showinfo: 0,
           mute: 1,
