@@ -3,21 +3,21 @@
 <head>
   <title>federal</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@900&display=swap');
-    
     :root {
-      --glass-bg: rgba(16, 16, 24, 0.7);
-      --border-color: rgba(255, 255, 255, 0.1);
+      --glass-bg: rgba(15, 15, 15, 0.7);
+      --border-color: rgba(35, 35, 35, 0.8);
+      --accent: #ff2e2e;
     }
 
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: 'Space Grotesk', sans-serif;
-      color: white;
+      font-family: 'JetBrains Mono', monospace;
+      color: #e0e0e0;
       overflow: hidden;
-      background: #000;
+      background: #0a0a0a;
     }
 
     #background-video {
@@ -30,92 +30,91 @@
       height: auto;
       z-index: -1;
       object-fit: cover;
+      filter: brightness(0.4) contrast(1.2);
     }
 
     .glass-card {
       background: var(--glass-bg);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(10px);
       border: 1px solid var(--border-color);
-      border-radius: 24px;
-      padding: 2.5rem;
+      border-radius: 6px;
+      padding: 2rem;
       width: 90%;
-      max-width: 500px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    }
-
-    .glass-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 24px;
-      padding: 1px;
-      background: linear-gradient(45deg, rgba(255,255,255,0.1), transparent);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
+      max-width: 460px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
     }
 
     .site-title {
-      font-family: 'Unbounded', sans-serif;
+      font-weight: 600;
       text-transform: lowercase;
-      background: linear-gradient(45deg, #fff, rgba(255,255,255,0.7));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      letter-spacing: -1px;
     }
 
     .skill-tag {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      font-weight: 500;
-      font-size: 0.9rem;
-      transition: all 0.3s ease;
+      background: rgba(25, 25, 25, 0.95);
+      border: 1px solid var(--border-color);
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: #888;
+      transition: all 0.2s ease;
     }
 
     .skill-tag:hover {
-      background: rgba(255, 255, 255, 0.15);
-      transform: translateY(-2px);
+      background: rgba(35, 35, 35, 0.95);
+      color: #fff;
     }
 
     #sound-toggle {
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      padding: 10px;
-      border-radius: 50%;
+      background: rgba(25, 25, 25, 0.95);
+      border: 1px solid var(--border-color);
+      padding: 8px;
+      border-radius: 4px;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
     }
 
     #sound-toggle:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(35, 35, 35, 0.95);
     }
 
     .badge {
       display: inline-flex;
       align-items: center;
-      padding: 0.25rem 0.75rem;
-      border-radius: 9999px;
-      font-size: 0.875rem;
-      font-weight: 500;
-      transition: all 0.3s ease;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      background: rgba(25, 25, 25, 0.95);
+      border: 1px solid var(--border-color);
+      color: #888;
       margin: 0 0.25rem;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     .badge svg {
       margin-right: 0.375rem;
+      width: 12px;
+      height: 12px;
     }
 
-    .badge:hover {
-      background: rgba(255, 255, 255, 0.15);
-      transform: translateY(-2px);
+    .views-counter {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      background: rgba(25, 25, 25, 0.95);
+      border: 1px solid var(--border-color);
+      color: #888;
+    }
+
+    .views-counter svg {
+      margin-right: 0.375rem;
+      width: 12px;
+      height: 12px;
     }
 
     .tooltip {
@@ -129,14 +128,15 @@
       left: 50%;
       transform: translateX(-50%);
       padding: 0.5rem;
-      border-radius: 0.375rem;
-      background: rgba(0, 0, 0, 0.8);
-      color: white;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.95);
+      border: 1px solid var(--border-color);
+      color: #888;
       font-size: 0.75rem;
       white-space: nowrap;
       opacity: 0;
       visibility: hidden;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
     }
 
     .tooltip:hover:before {
@@ -144,47 +144,63 @@
       visibility: visible;
       bottom: calc(100% + 5px);
     }
+
+    @keyframes pulse {
+      0% { opacity: 0.4; }
+      50% { opacity: 0.7; }
+      100% { opacity: 0.4; }
+    }
+
+    .loading {
+      animation: pulse 1.5s infinite;
+    }
   </style>
 </head>
 <body>
-  <video id="background-video" autoplay loop muted>
+  <video id="background-video" autoplay loop muted playsinline>
     <source src="background.mp4" type="video/mp4">
   </video>
 
   <div class="fixed inset-0 flex items-center justify-center p-4">
     <div class="glass-card relative">
       <div class="text-center">
-        <h1 class="site-title text-4xl md:text-5xl mb-3">federal</h1>
-        <p class="text-gray-400 mb-3">security researcher & developer</p>
+        <h1 class="site-title text-3xl md:text-4xl mb-2">federal</h1>
+        <p class="text-gray-500 text-sm mb-3">security researcher & developer</p>
         
-        <div class="flex justify-center space-x-2 mb-6">
+        <div class="flex justify-center space-x-2 mb-4">
           <span class="badge tooltip" data-tooltip="Website Owner">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
             </svg>
             Owner
           </span>
           <span class="badge tooltip" data-tooltip="Site Administrator">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
             </svg>
             Admin
           </span>
         </div>
         
-        <div class="flex justify-center mb-6">
-          <img src="https://komarev.com/ghpvc/?username=Merzttt&color=grey&style=flat-square" alt="Profile Views" />
+        <div class="flex justify-center mb-4">
+          <div class="views-counter">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+            <span id="viewCount" class="loading">...</span> views
+          </div>
         </div>
       
-        <div class="space-y-6">
+        <div class="space-y-4">
           <div>
-            <p class="text-sm leading-relaxed text-gray-300">
+            <p class="text-xs leading-relaxed text-gray-400">
               16-year-old developer with 8 years of coding experience, specializing in vulnerability research
               and exploit development.
             </p>
           </div>
 
-          <div class="flex flex-wrap gap-2 justify-center">
+          <div class="flex flex-wrap gap-1 justify-center">
             <div class="skill-tag">c++</div>
             <div class="skill-tag">c#</div>
             <div class="skill-tag">lua/luau</div>
@@ -195,8 +211,8 @@
     </div>
   </div>
 
-  <button id="sound-toggle" class="text-white">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <button id="sound-toggle" class="text-gray-400">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
       <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
     </svg>
@@ -207,14 +223,38 @@
     const soundToggle = document.getElementById('sound-toggle');
     let isMuted = true;
 
+    const namespace = 'bio.federal.wtf';
+    const key = 'visits';
+    
+    fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
+      .then(response => response.json())
+      .then(data => {
+        const viewCount = document.getElementById('viewCount');
+        viewCount.textContent = data.value.toLocaleString();
+        viewCount.classList.remove('loading');
+      })
+      .catch(() => {
+        const viewCount = document.getElementById('viewCount');
+        viewCount.textContent = '—';
+        viewCount.classList.remove('loading');
+      });
+
     soundToggle.addEventListener('click', () => {
       isMuted = !isMuted;
       video.muted = isMuted;
       
       if (isMuted) {
-        soundToggle.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>`;
+        soundToggle.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>`;
       } else {
-        soundToggle.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>`;
+        soundToggle.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>`;
+      }
+    });
+
+    video.addEventListener('loadeddata', () => {
+      if (video.paused) {
+        video.play().catch(() => {
+          console.log('Autoplay prevented');
+        });
       }
     });
   </script>
