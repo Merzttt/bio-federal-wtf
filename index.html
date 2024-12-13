@@ -5,6 +5,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    /* Previous styles remain the same until .yt-container */
     :root {
       --glass-bg: rgba(15, 15, 15, 0.7);
       --border-color: rgba(35, 35, 35, 0.8);
@@ -28,31 +29,29 @@
 
     .yt-container {
       position: fixed;
-      right: 0;
-      bottom: 0;
-      min-width: 100%;
-      min-height: 100vh;
-      width: auto;
-      height: auto;
-      z-index: -1;
+      inset: 0;
       overflow: hidden;
       background: #000;
+      z-index: -1;
     }
 
     #yt-player {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
       pointer-events: none;
-      min-width: 200%;
-      min-height: 200vh;
     }
 
     .yt-container iframe {
+      width: 100%;
+      height: 100%;
       opacity: 0.6;
+      object-fit: cover;
     }
 
+    /* Rest of the styles remain the same */
     .glass-card {
       background: var(--glass-bg);
       backdrop-filter: blur(10px);
@@ -175,6 +174,7 @@
     <div id="yt-player"></div>
   </div>
 
+  <!-- Rest of the HTML remains the same -->
   <div class="fixed inset-0 flex items-center justify-center p-4">
     <div class="glass-card" id="card">
       <div class="glass-card-content">
@@ -220,7 +220,8 @@
   <button id="sound-toggle" class="text-gray-400">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-      <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+      <line x1="23" y1="9" x2="17" y2="15"></line>
+      <line x1="17" y1="9" x2="23" y2="15"></line>
     </svg>
   </button>
 
@@ -229,7 +230,7 @@
     const card = document.getElementById('card');
     const soundToggle = document.getElementById('sound-toggle');
     let player;
-    let isMuted = true;
+    let isMuted = false;
 
     function onYouTubeIframeAPIReady() {
       player = new YT.Player('yt-player', {
@@ -240,7 +241,7 @@
           playlist: 'Ys3zAdSI1eI',
           controls: 0,
           showinfo: 0,
-          mute: 1,
+          mute: 0,
           modestbranding: 1,
           iv_load_policy: 3,
           fs: 0,
@@ -255,7 +256,7 @@
           onReady: (e) => {
             e.target.playVideo();
             e.target.setPlaybackQuality('hd1080');
-            e.target.mute();
+            e.target.unMute();
           },
           onStateChange: (e) => {
             if (e.data === YT.PlayerState.ENDED) {
