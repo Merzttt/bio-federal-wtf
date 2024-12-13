@@ -5,7 +5,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    /* Previous styles remain the same until .yt-container */
     :root {
       --glass-bg: rgba(15, 15, 15, 0.7);
       --border-color: rgba(35, 35, 35, 0.8);
@@ -51,7 +50,6 @@
       object-fit: cover;
     }
 
-    /* Rest of the styles remain the same */
     .glass-card {
       background: var(--glass-bg);
       backdrop-filter: blur(10px);
@@ -174,7 +172,6 @@
     <div id="yt-player"></div>
   </div>
 
-  <!-- Rest of the HTML remains the same -->
   <div class="fixed inset-0 flex items-center justify-center p-4">
     <div class="glass-card" id="card">
       <div class="glass-card-content">
@@ -257,6 +254,7 @@
             e.target.playVideo();
             e.target.setPlaybackQuality('hd1080');
             e.target.unMute();
+            updateSoundIcon();
           },
           onStateChange: (e) => {
             if (e.data === YT.PlayerState.ENDED) {
@@ -265,6 +263,14 @@
           }
         }
       });
+    }
+
+    function updateSoundIcon() {
+      if (isMuted) {
+        soundToggle.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>`;
+      } else {
+        soundToggle.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>`;
+      }
     }
 
     card.addEventListener('mousemove', (e) => {
@@ -297,11 +303,10 @@
       isMuted = !isMuted;
       if (isMuted) {
         player.mute();
-        soundToggle.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>`;
       } else {
         player.unMute();
-        soundToggle.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>`;
       }
+      updateSoundIcon();
     });
   </script>
 </body>
